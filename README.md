@@ -4,8 +4,9 @@
 ###  config apache2
         httpd.conf
             LoadModule rewrite_module lib/httpd/modules/mod_rewrite.so
+
 ### create project:
-        cd .../www/
+        cd /Users/wang/www
         composer create-project laravel/laravel t1  "8.*"  --prefer-dist
         composer install
 
@@ -16,13 +17,35 @@
         php artisan db:seed
 
 ## laravel with apache
-        # add vhost to http config
-        # add permissions to project public directory
-                <Directory "/Users/wang/www/t1/public">
-                        Options Indexes FollowSymLinks
-                        AllowOverride All
-                        Require all granted
-                </Directory>
+
+```
+    ######################################################
+    # add permission
+    <Directory "/Users/wang/www/t1/public">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ##################
+    # add setting for v1
+    <VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    ServerName la.localhost
+        DocumentRoot "/Users/wang/www/t1/public"
+        <Directory "/Users/wang/www/t1/public">
+            Options  Indexes Includes FollowSymLinks ExecCGI MultiViews
+            AllowOverride  All
+            Order  allow,deny
+            Allow  from all
+        ReWriteEngine On
+        </Directory>
+    ServerAlias localhost
+    ErrorLog "/opt/homebrew/var/log/httpd/t1.error.log"
+    CustomLog "/opt/homebrew/var/log/httpd/t1.error.access_log.log" common
+    </VirtualHost>
+```
+
         # restart apache2
 ## quickstart
         https://laravel.com/docs/5.1/quickstart
