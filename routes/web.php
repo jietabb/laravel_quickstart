@@ -54,3 +54,9 @@ Route::delete('/task/{id}', function ($id) {
     Task::findOrFail($id)->delete();
     return redirect('/');
 });
+
+Route::get('/t', function (Request $request) {
+    echo json_encode(array('secret' => 'keytest'));
+    //return json_encode(array('secret' => 'keytest'));
+    //return response()->json(['errors' => 'test err', 402]);
+});
