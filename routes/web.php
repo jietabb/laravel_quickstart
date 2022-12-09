@@ -19,6 +19,18 @@ use App\Models\Task;
  * Display All Tasks
  */
 Route::get('/', function () {
+    {
+        $tz = 'Europe/London';
+        $timestamp = time();
+        $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+        $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+        echo "$tz time: " . $dt->format('m-d-Y, H:i:s');
+        //----------------------------------------------------------------
+        $tz2 = 'Asia/Tokyo';
+        $dt2 = new \DateTime("now", new \DateTimeZone($tz2));
+        $dt2->setTimestamp($timestamp);
+        echo "<br>$tz2 time:______" . $dt2->format('m-d-Y, H:i:s');
+    }
     $tasks = Task::orderBy('created_at', 'asc')->get();
 
     return view('tasks', [
