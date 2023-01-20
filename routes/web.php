@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Task;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,12 @@ Route::get('/', function () {
         $dt2 = new \DateTime("now", new \DateTimeZone($tz2));
         $dt2->setTimestamp($timestamp);
         echo "<br>$tz2 time:______" . $dt2->format('m-d-Y, H:i:s');
+        //----------------------------------------------------------------
+        date_default_timezone_set("UTC");
+        echo "<br>UTC now: " . now();
+        echo "<br>UTC time: " . time();
+        //----------------------------------------------------------------
+        echo "<br>UTC carbon now: " . Carbon::now();
     }
     $tasks = Task::orderBy('created_at', 'asc')->get();
 
