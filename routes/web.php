@@ -20,24 +20,24 @@ use Carbon\Carbon;
  * Display All Tasks
  */
 Route::get('/', function () {
-    {
-        $tz = 'Europe/London';
-        $timestamp = time();
-        $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
-        $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
-        echo "$tz time: " . $dt->format('m-d-Y, H:i:s');
-        //----------------------------------------------------------------
-        $tz2 = 'Asia/Tokyo';
-        $dt2 = new \DateTime("now", new \DateTimeZone($tz2));
-        $dt2->setTimestamp($timestamp);
-        echo "<br>$tz2 time:______" . $dt2->format('m-d-Y, H:i:s');
-        //----------------------------------------------------------------
-        date_default_timezone_set("UTC");
-        echo "<br>UTC now: " . now();
-        echo "<br>UTC time: " . time();
-        //----------------------------------------------------------------
-        echo "<br>UTC carbon now: " . Carbon::now();
-    }
+    // {
+    //     $tz = 'Europe/London';
+    //     $timestamp = time();
+    //     $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+    //     $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+    //     echo "$tz time: " . $dt->format('m-d-Y, H:i:s');
+    //     //----------------------------------------------------------------
+    //     $tz2 = 'Asia/Tokyo';
+    //     $dt2 = new \DateTime("now", new \DateTimeZone($tz2));
+    //     $dt2->setTimestamp($timestamp);
+    //     echo "<br>$tz2 time:______" . $dt2->format('m-d-Y, H:i:s');
+    //     //----------------------------------------------------------------
+    //     date_default_timezone_set("UTC");
+    //     echo "<br>UTC now: " . now();
+    //     echo "<br>UTC time: " . time();
+    //     //----------------------------------------------------------------
+    //     echo "<br>UTC carbon now: " . Carbon::now();
+    // }
     $tasks = Task::orderBy('created_at', 'asc')->get();
 
     return view('tasks', [
